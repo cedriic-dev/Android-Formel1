@@ -15,25 +15,12 @@ To run this app on your local machine, follow these steps:
 
 1. Clone the repository to your local machine.
 
-git clone https://gitlab.htl-perg.ac.at/formula-1/formula-1-android.git
+    git clone https://gitlab.htl-perg.ac.at/formula-1/formula-1-android.git
 
 2. Open the project in Android Studio.
 
 3. Build and run the app.
 
-## API Key
-
-To access the API provided by API Sports, you need to obtain an API key. You can get one for free by signing up for an account on the [API Sports website](https://rapidapi.com/api-sports/api/api-formula-1/pricing).
-
-After you get your API key, add it to the `gradle.properties` file like this:
-
-API_KEY=your-api-key-here
-
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
 ## License
 
-This app is licensed under the [MIT License](https://github.com/your-username/formula-1-driver-app/blob/main/LICENSE).
+This app is licensed under the [MIT License](https://gitlab.htl-perg.ac.at/formula-1/formula-1-android/-/blob/main/LICENSE).
