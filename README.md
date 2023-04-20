@@ -15,7 +15,7 @@ To run this app on your local machine, follow these steps:
 
 1. Clone the repository to your local machine.
 
-git clone https://github.com/your-username/formula-1-driver-app.git
+git clone https://gitlab.htl-perg.ac.at/formula-1/formula-1-android.git
 
 2. Open the project in Android Studio.
 
