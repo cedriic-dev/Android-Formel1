@@ -7,7 +7,7 @@ import java.util.List;
 
 import at.ac.htlperg.viewmodeldemo.model.Driver;
 
-public class UserViewModel extends ViewModel {
+public class DriverViewModel extends ViewModel {
     private MutableLiveData<Model> data;
 
     public MutableLiveData<Model> getData() {

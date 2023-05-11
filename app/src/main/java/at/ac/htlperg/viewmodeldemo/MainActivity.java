@@ -1,15 +1,12 @@
 package at.ac.htlperg.viewmodeldemo;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.driverList);
 
-        UserService userService = new UserService();
+        DriverService userService = new DriverService();
 
         userService.load().thenAccept(driverList -> {
             drivers = driverList;

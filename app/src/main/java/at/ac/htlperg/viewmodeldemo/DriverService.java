@@ -2,7 +2,6 @@ package at.ac.htlperg.viewmodeldemo;
 
 import android.util.Log;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.concurrent.CompletionException;
 
 import at.ac.htlperg.viewmodeldemo.model.Driver;
 
-public class UserService {
+public class DriverService {
     private static final String TAG = "UserService";
     private static final String URL = "https://planitup.eu/images/drivers.json";
 
