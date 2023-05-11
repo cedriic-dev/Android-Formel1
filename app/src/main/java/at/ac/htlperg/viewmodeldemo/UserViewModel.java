@@ -3,6 +3,10 @@ package at.ac.htlperg.viewmodeldemo;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
+import at.ac.htlperg.viewmodeldemo.model.Driver;
+
 public class UserViewModel extends ViewModel {
     private MutableLiveData<Model> data;
 
@@ -13,8 +17,9 @@ public class UserViewModel extends ViewModel {
         return data;
     }
 
-    public void updateData(Model model) {
+    public void updateData(List<Driver> drivers) {
         if (data != null) {
+            Model model = new Model(drivers);
             data.setValue(model);
         }
     }
