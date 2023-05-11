@@ -7,11 +7,8 @@ import at.ac.htlperg.viewmodeldemo.model.Driver;
 public class Model {
         private final List<Driver> drivers;
 
-        public Model(List<Driver> users) {
-                this.drivers = users;
-        }
-        public Model() {
-                drivers = List.of();
+        public Model(List<Driver> drivers) {
+                this.drivers = drivers;
         }
 
         public List<Driver> getDrivers() {

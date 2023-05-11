@@ -2,7 +2,7 @@ package at.ac.htlperg.viewmodeldemo;
 
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -11,23 +11,23 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-import at.ac.htlperg.viewmodeldemo.model.MRData;
+import at.ac.htlperg.viewmodeldemo.model.Driver;
+
 public class UserService {
     private static final String TAG = "UserService";
-    private static final String URL = "https://ergast.com/api/f1/drivers.json";
+    private static final String URL = "https://planitup.eu/images/drivers.json";
 
-    public CompletableFuture<MRData> load() {
+    public CompletableFuture<List<Driver>> load() {
         try {
-            var url = new URL(URL);
-            var mapper = new ObjectMapper()
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            URL url = new URL(URL);
+            ObjectMapper mapper = new ObjectMapper();
 
             return CompletableFuture.supplyAsync(() -> {
-                MRData data;
                 try {
-                    data = mapper.readValue(url, MRData.class);
-                    Log.d(TAG, "Data loaded: " + data.toString());
-                    return data;
+                    Response response = mapper.readValue(url, Response.class);
+                    List<Driver> drivers = response.getDrivers();
+                    Log.d(TAG, "Data loaded: " + drivers.toString());
+                    return drivers;
                 } catch (IOException e) {
                     Log.e(TAG, "Error parsing JSON", e);
                     throw new CompletionException(e);
@@ -36,6 +36,18 @@ public class UserService {
         } catch (Exception e) {
             Log.e(TAG, "Error loading data", e);
             throw new CompletionException(e);
+        }
+    }
+
+    private static class Response {
+        private List<Driver> Drivers;
+
+        public List<Driver> getDrivers() {
+            return Drivers;
+        }
+
+        public void setDrivers(List<Driver> drivers) {
+            Drivers = drivers;
         }
     }
 }
