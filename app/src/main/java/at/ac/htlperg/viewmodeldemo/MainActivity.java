@@ -66,14 +66,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Driver driver = drivers.get(position);
-            TextView permanentNumberView = convertView.findViewById(R.id.permanentNumber);
-            permanentNumberView.setText(driver.getPermanentNumber());
 
             TextView givenNameView = convertView.findViewById(R.id.givenName);
             givenNameView.setText(driver.getGivenName());
 
             TextView familyNameView = convertView.findViewById(R.id.familyName);
             familyNameView.setText(driver.getFamilyName());
+
+            TextView teamNameView = convertView.findViewById(R.id.teamName);
+            teamNameView.setText(driver.getTeam());
 
             ImageView driverImageView = convertView.findViewById(R.id.driverImage);
             Picasso.get().load(driver.getImage()).into(driverImageView);
