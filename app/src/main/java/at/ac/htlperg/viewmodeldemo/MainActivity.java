@@ -1,17 +1,21 @@
 package at.ac.htlperg.viewmodeldemo;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +24,7 @@ import at.ac.htlperg.viewmodeldemo.model.Driver;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
+    private RecyclerView recyclerView;
     private List<Driver> drivers;
 
     @Override
@@ -28,93 +32,106 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = findViewById(R.id.driverList);
+        recyclerView = findViewById(R.id.driverList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         DriverService userService = new DriverService();
 
         userService.load().thenAccept(driverList -> {
             drivers = driverList;
-            runOnUiThread(() -> listView.setAdapter(new DriverAdapter()));
+            runOnUiThread(() -> recyclerView.setAdapter(new DriverAdapter()));
         }).exceptionally(e -> {
             Log.e("MainActivity", "Error loading data", e);
             return null;
         });
-
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Driver selectedDriver = drivers.get(position);
-            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-            intent.putExtra("id", selectedDriver.getDriverId());
-            intent.putExtra("givenName", selectedDriver.getGivenName());
-            intent.putExtra("familyName", selectedDriver.getFamilyName());
-            startActivity(intent);
-        });
     }
 
-    class DriverAdapter extends ArrayAdapter<Driver> {
+    class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverViewHolder> {
 
-        DriverAdapter() {
-            super(MainActivity.this, R.layout.driver_cell_layout, drivers);
+        @NonNull
+        @Override
+        public DriverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.driver_cell_layout, parent, false);
+            return new DriverViewHolder(v);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.driver_cell_layout, parent, false);
-            }
-
+        public void onBindViewHolder(@NonNull DriverViewHolder holder, int position) {
             Driver driver = drivers.get(position);
-
-            TextView givenNameView = convertView.findViewById(R.id.givenName);
-            givenNameView.setText(driver.getGivenName());
-
-            TextView familyNameView = convertView.findViewById(R.id.familyName);
-            familyNameView.setText(driver.getFamilyName());
-
-            TextView teamNameView = convertView.findViewById(R.id.teamName);
-            teamNameView.setText(driver.getTeam());
+            Chip teamNameBox = holder.itemView.findViewById(R.id.teamName);
+            holder.givenNameView.setText(driver.getGivenName());
+            holder.familyNameView.setText(driver.getFamilyName());
+            holder.teamNameView.setText(driver.getTeam());
 
             // Set the color of the teamNameView based on the team name
             switch (driver.getTeam()) {
                 case "Red Bull Racing":
-                    teamNameView.setTextColor(getResources().getColor(R.color.RedBull));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.RedBull)));
                     break;
                 case "Ferrari":
-                    teamNameView.setTextColor(getResources().getColor(R.color.Ferrari));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Ferrari)));
                     break;
                 case "Mercedes":
-                    teamNameView.setTextColor(getResources().getColor(R.color.Mercedes));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Mercedes)));
                     break;
                 case "Alpine":
-                    teamNameView.setTextColor(getResources().getColor(R.color.Alpine));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Alpine)));
                     break;
                 case "McLaren":
-                    teamNameView.setTextColor(getResources().getColor(R.color.McLaren));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.McLaren)));
                     break;
                 case "Alfa Romeo":
-                    teamNameView.setTextColor(getResources().getColor(R.color.AlfaRomeo));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlfaRomeo)));
                     break;
                 case "Aston Martin":
-                    teamNameView.setTextColor(getResources().getColor(R.color.AstonMartin));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AstonMartin)));
                     break;
                 case "Haas":
-                    teamNameView.setTextColor(getResources().getColor(R.color.Haas));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Haas)));
                     break;
                 case "Alpha Tauri":
-                    teamNameView.setTextColor(getResources().getColor(R.color.AlphaTauri));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlphaTauri)));
                     break;
                 case "Williams":
-                    teamNameView.setTextColor(getResources().getColor(R.color.Williams));
+                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Williams)));
                     break;
                 default:
                     // Use the default text color if the team name is not recognized
-                    teamNameView.setTextColor(getResources().getColor(android.R.color.black));
+                    holder.teamNameView.setBackgroundColor(getResources().getColor(android.R.color.white));
                     break;
             }
 
-            ImageView driverImageView = convertView.findViewById(R.id.driverImage);
-            Picasso.get().load(driver.getImage()).into(driverImageView);
+            Picasso.get().load(driver.getImage()).into(holder.driverImageView);
 
-            return convertView;
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("id", driver.getDriverId());
+                intent.putExtra("givenName", driver.getGivenName());
+                intent.putExtra("familyName", driver.getFamilyName());
+                startActivity(intent);
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return drivers.size();
+        }
+        class DriverViewHolder extends RecyclerView.ViewHolder {
+            TextView givenNameView;
+            TextView familyNameView;
+            TextView teamNameView;
+            ImageView driverImageView;
+
+            DriverViewHolder(@NonNull View itemView) {
+                super(itemView);
+                givenNameView = itemView.findViewById(R.id.givenName);
+                familyNameView = itemView.findViewById(R.id.familyName);
+                teamNameView = itemView.findViewById(R.id.teamName);
+                driverImageView = itemView.findViewById(R.id.driverImage);
+            }
         }
     }
 }
+
+
+

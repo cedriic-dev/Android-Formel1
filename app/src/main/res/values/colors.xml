@@ -8,14 +8,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="RedBull">#FF00192d</color>
+    <color name="RedBull">#FF3671C6</color>
     <color name="Ferrari">#FFc22128</color>
     <color name="Mercedes">#FF009892</color>
     <color name="Alpine">#FF006caf</color>
     <color name="McLaren">#Fff27900</color>
     <color name="AlfaRomeo">#FF952033</color>
     <color name="AstonMartin">#FF09554d</color>
-    <color name="Haas">#FFee1b24</color>
-    <color name="AlphaTauri">#FF02102e</color>
+    <color name="Haas">#FFB6BABD</color>
+    <color name="AlphaTauri">#FF20394C</color>
     <color name="Williams">#FF0098d3</color>
 </resources>
