@@ -8,6 +8,7 @@ public class Driver {
     private String nationality;
     private String image;
 
+    private String team;
 
     public String getDriverId() {
         return driverId;
@@ -55,6 +56,14 @@ public class Driver {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String driver) {
+        this.team = driver;
     }
 
     @Override
