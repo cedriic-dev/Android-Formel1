@@ -1,6 +1,6 @@
 # 🏎️ Formula 1 Driver App
 
-This Android app displays a list of Formula 1 drivers retrieved from the REST API provided by [API Sports](https://rapidapi.com/api-sports/api/api-formula-1). 
+This Android app displays a list of Formula 1 drivers retrieved from the REST API provided by [PlanITup](https://planitup.eu/images/drivers.json). 
 
 ## Features
 
