@@ -34,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.driverList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         DriverService userService = new DriverService();
-
         userService.load().thenAccept(driverList -> {
             drivers = driverList;
             runOnUiThread(() -> recyclerView.setAdapter(new DriverAdapter()));
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public DriverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            //Hier wird das Layout für die einzelnen Fahrer/Cells festgelegt
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.driver_cell_layout, parent, false);
             return new DriverViewHolder(v);
         }
