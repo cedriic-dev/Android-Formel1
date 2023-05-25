@@ -3,10 +3,13 @@ package at.ac.htlperg.viewmodeldemo.activities;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import at.ac.htlperg.viewmodeldemo.services.DriverService;
 import at.ac.htlperg.viewmodeldemo.R;
@@ -29,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Driver> drivers;
+    private List<Driver> filteredDrivers;
+    private EditText searchEditText;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +45,49 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.driverList);
+        searchEditText = findViewById(R.id.searchEditText);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DriverService userService = new DriverService();
         userService.load().thenAccept(driverList -> {
             drivers = driverList;
-            runOnUiThread(() -> recyclerView.setAdapter(new DriverAdapter()));
+            filteredDrivers = new ArrayList<>(drivers);
+            runOnUiThread(() -> {
+                recyclerView.setAdapter(new DriverAdapter());
+                setupSearchListener();
+            });
         }).exceptionally(e -> {
             Log.e("MainActivity", "Error loading data", e);
             return null;
+        });
+    }
+
+    private void setupSearchListener() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not needed
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchText = s.toString().toLowerCase();
+                filteredDrivers.clear();
+                if (searchText.isEmpty()) {
+                    filteredDrivers.addAll(drivers);
+                } else {
+                    for (Driver driver : drivers) {
+                        if (driver.getFamilyName().toLowerCase().contains(searchText)) {
+                            filteredDrivers.add(driver);
+                        }
+                    }
+                }
+                Log.d(TAG,filteredDrivers.toString());
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Not needed
+            }
         });
     }
 
@@ -97,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return drivers.size();
+            return filteredDrivers.size();
         }
         class DriverViewHolder extends RecyclerView.ViewHolder {
             TextView driverNumberView;
