@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the color of the teamNameView based on the team name
             switch (driver.getTeam()) {
-                case "Red Bull Racing":
+                case "Red Bull":
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.RedBull)));
                     holder.driverNumberView.setTextColor(getResources().getColor(R.color.RedBull));
                     break;
@@ -162,6 +162,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("id", driver.getPermanentNumber());
                 intent.putExtra("givenName", driver.getGivenName());
                 intent.putExtra("familyName", driver.getFamilyName());
+                intent.putExtra("team", driver.getTeam());
+                intent.putExtra("nationality", driver.getNationality());
+                intent.putExtra("highest_race_finish", driver.getHighest_race_finish());
+                intent.putExtra("grands_prix", driver.getGrands_prix());
+                intent.putExtra("points", driver.getPoints());
+                intent.putExtra("image", driver.getImage());
+
                 startActivity(intent);
             });
         }
