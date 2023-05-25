@@ -1,8 +1,10 @@
 package at.ac.htlperg.viewmodeldemo.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Picasso;
 
 import at.ac.htlperg.viewmodeldemo.R;
+import at.ac.htlperg.viewmodeldemo.utils.Team;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -39,6 +42,15 @@ public class DetailActivity extends AppCompatActivity {
         TextView teamView = findViewById(R.id.driverTeamDetail);
         teamView.setText(team);
 
+        // Set team color background
+        Team teamEnum = Team.fromTeamName(team);
+        if (teamEnum != null) {
+            LinearLayout driverImageContainer = findViewById(R.id.driverImageContainer);
+            int teamColor = getResources().getColor(teamEnum.getColorResourceId());
+            GradientDrawable circleBackground = (GradientDrawable) driverImageContainer.getBackground();
+            circleBackground.setColor(teamColor);
+        }
+
         TextView highestRaceFinishView = findViewById(R.id.driverHighestRaceFinishDetail);
         highestRaceFinishView.setText(highestRaceFinish);
 
@@ -47,6 +59,5 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView pointsView = findViewById(R.id.driverPointsDetail);
         pointsView.setText(points);
-
     }
 }
