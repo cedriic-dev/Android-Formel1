@@ -96,14 +96,13 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public DriverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            //Hier wird das Layout für die einzelnen Fahrer/Cells festgelegt
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.driver_cell_layout, parent, false);
             return new DriverViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(@NonNull DriverViewHolder holder, int position) {
-            Driver driver = drivers.get(position);
+            Driver driver = filteredDrivers.get(position);
             Chip teamNameBox = holder.itemView.findViewById(R.id.teamName);
             holder.givenNameView.setText(driver.getGivenName());
             holder.familyNameView.setText(driver.getFamilyName());
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 // Handle the case when the team name is not recognized
                 holder.teamNameView.setBackgroundColor(getResources().getColor(android.R.color.white));
             }
-
 
             Picasso.get().load(driver.getImage()).into(holder.driverImageView);
 
@@ -143,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return filteredDrivers.size();
         }
+
         class DriverViewHolder extends RecyclerView.ViewHolder {
             TextView driverNumberView;
             TextView givenNameView;
