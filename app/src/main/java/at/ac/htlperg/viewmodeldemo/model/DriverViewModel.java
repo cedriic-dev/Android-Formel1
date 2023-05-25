@@ -1,4 +1,4 @@
-package at.ac.htlperg.viewmodeldemo;
+package at.ac.htlperg.viewmodeldemo.model;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import at.ac.htlperg.viewmodeldemo.model.Driver;
+import at.ac.htlperg.viewmodeldemo.model.Model;
 
 public class DriverViewModel extends ViewModel {
     private MutableLiveData<Model> data;

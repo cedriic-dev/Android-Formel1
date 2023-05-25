@@ -1,4 +1,4 @@
-package at.ac.htlperg.viewmodeldemo;
+package at.ac.htlperg.viewmodeldemo.activities;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -20,7 +20,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import at.ac.htlperg.viewmodeldemo.services.DriverService;
+import at.ac.htlperg.viewmodeldemo.R;
 import at.ac.htlperg.viewmodeldemo.model.Driver;
+import at.ac.htlperg.viewmodeldemo.utils.Team;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,52 +67,15 @@ public class MainActivity extends AppCompatActivity {
             holder.driverNumberView.setText(driver.getPermanentNumber());
 
             // Set the color of the teamNameView based on the team name
-            switch (driver.getTeam()) {
-                case "Red Bull":
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.RedBull)));
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.RedBull));
-                    break;
-                case "Ferrari":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Ferrari));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Ferrari)));
-                    break;
-                case "Mercedes":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Mercedes));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Mercedes)));
-                    break;
-                case "Alpine":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Alpine));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Alpine)));
-                    break;
-                case "McLaren":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.McLaren));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.McLaren)));
-                    break;
-                case "Alfa Romeo":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AlfaRomeo));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlfaRomeo)));
-                    break;
-                case "Aston Martin":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AstonMartin));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AstonMartin)));
-                    break;
-                case "Haas":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Haas));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Haas)));
-                    break;
-                case "Alpha Tauri":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AlphaTauri));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlphaTauri)));
-                    break;
-                case "Williams":
-                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Williams));
-                    teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Williams)));
-                    break;
-                default:
-                    // Use the default text color if the team name is not recognized
-                    holder.teamNameView.setBackgroundColor(getResources().getColor(android.R.color.white));
-                    break;
+            Team team = Team.fromTeamName(driver.getTeam());
+            if (team != null) {
+                teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(team.getColorResourceId())));
+                holder.driverNumberView.setTextColor(getResources().getColor(team.getColorResourceId()));
+            } else {
+                // Handle the case when the team name is not recognized
+                holder.teamNameView.setBackgroundColor(getResources().getColor(android.R.color.white));
             }
+
 
             Picasso.get().load(driver.getImage()).into(holder.driverImageView);
 

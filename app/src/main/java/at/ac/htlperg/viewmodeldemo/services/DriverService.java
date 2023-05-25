@@ -1,4 +1,4 @@
-package at.ac.htlperg.viewmodeldemo;
+package at.ac.htlperg.viewmodeldemo.services;
 
 import android.util.Log;
 

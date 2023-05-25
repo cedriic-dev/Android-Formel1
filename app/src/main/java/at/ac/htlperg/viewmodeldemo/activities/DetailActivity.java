@@ -1,4 +1,4 @@
-package at.ac.htlperg.viewmodeldemo;
+package at.ac.htlperg.viewmodeldemo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
+
+import at.ac.htlperg.viewmodeldemo.R;
 
 public class DetailActivity extends AppCompatActivity {
 
