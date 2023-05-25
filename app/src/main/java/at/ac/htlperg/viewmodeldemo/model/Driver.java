@@ -7,8 +7,10 @@ public class Driver {
     private String familyName;
     private String nationality;
     private String image;
-
     private String team;
+    private String highest_race_finish;
+    private String grands_prix;
+    private String points;
 
     public String getDriverId() {
         return driverId;
@@ -64,6 +66,30 @@ public class Driver {
 
     public void setTeam(String driver) {
         this.team = driver;
+    }
+
+    public String getHighest_race_finish() {
+        return highest_race_finish;
+    }
+
+    public void setHighest_race_finish(String highest_race_finish) {
+        this.highest_race_finish = highest_race_finish;
+    }
+
+    public String getGrands_prix() {
+        return grands_prix;
+    }
+
+    public void setGrands_prix(String grands_prix) {
+        this.grands_prix = grands_prix;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
     }
 
     @Override

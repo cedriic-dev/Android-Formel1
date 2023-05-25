@@ -62,37 +62,48 @@ public class MainActivity extends AppCompatActivity {
             holder.givenNameView.setText(driver.getGivenName());
             holder.familyNameView.setText(driver.getFamilyName());
             holder.teamNameView.setText(driver.getTeam());
+            holder.driverNumberView.setText(driver.getPermanentNumber());
 
             // Set the color of the teamNameView based on the team name
             switch (driver.getTeam()) {
                 case "Red Bull Racing":
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.RedBull)));
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.RedBull));
                     break;
                 case "Ferrari":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Ferrari));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Ferrari)));
                     break;
                 case "Mercedes":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Mercedes));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Mercedes)));
                     break;
                 case "Alpine":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Alpine));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Alpine)));
                     break;
                 case "McLaren":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.McLaren));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.McLaren)));
                     break;
                 case "Alfa Romeo":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AlfaRomeo));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlfaRomeo)));
                     break;
                 case "Aston Martin":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AstonMartin));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AstonMartin)));
                     break;
                 case "Haas":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Haas));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Haas)));
                     break;
                 case "Alpha Tauri":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.AlphaTauri));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.AlphaTauri)));
                     break;
                 case "Williams":
+                    holder.driverNumberView.setTextColor(getResources().getColor(R.color.Williams));
                     teamNameBox.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.Williams)));
                     break;
                 default:
@@ -105,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("id", driver.getDriverId());
+                intent.putExtra("id", driver.getPermanentNumber());
                 intent.putExtra("givenName", driver.getGivenName());
                 intent.putExtra("familyName", driver.getFamilyName());
                 startActivity(intent);
@@ -117,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             return drivers.size();
         }
         class DriverViewHolder extends RecyclerView.ViewHolder {
+            TextView driverNumberView;
             TextView givenNameView;
             TextView familyNameView;
             TextView teamNameView;
@@ -124,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
             DriverViewHolder(@NonNull View itemView) {
                 super(itemView);
+                driverNumberView = itemView.findViewById(R.id.driverNumber);
                 givenNameView = itemView.findViewById(R.id.givenName);
                 familyNameView = itemView.findViewById(R.id.familyName);
                 teamNameView = itemView.findViewById(R.id.teamName);
