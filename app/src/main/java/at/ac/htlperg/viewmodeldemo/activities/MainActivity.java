@@ -1,5 +1,6 @@
 package at.ac.htlperg.viewmodeldemo.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import at.ac.htlperg.viewmodeldemo.services.DriverService;
 import at.ac.htlperg.viewmodeldemo.R;
@@ -66,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Not needed
+                //
             }
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchText = s.toString().toLowerCase();
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 Log.d(TAG,filteredDrivers.toString());
-                recyclerView.getAdapter().notifyDataSetChanged();
+                Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
             }
             @Override
             public void afterTextChanged(Editable s) {

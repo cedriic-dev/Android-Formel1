@@ -16,7 +16,8 @@
             android:id="@+id/driverImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="Image of driver" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         String grandsPrix = intent.getStringExtra("grands_prix");
         String points = intent.getStringExtra("points");
 
-        ImageView driverImageView = findViewById(R.id.driverImageDetail);
+        ImageView driverImageView = findViewById(R.id.driverImage);
         Picasso.get().load(image).into(driverImageView);
 
         TextView driverNameView = findViewById(R.id.driverNameDetail);
